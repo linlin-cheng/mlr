@@ -8,7 +8,6 @@ getTaskDesc = function(x) {
   UseMethod("getTaskDesc")
 }
 
-
 #' @export
 getTaskDesc.default = function(x) {
   x$task.desc
@@ -222,6 +221,12 @@ getTaskTargets.CostSensTask = function(task, recode.target = "no") {
   stop("There is no target available for costsens tasks.")
 }
 
+#' @export
+getTaskTargets.MultiForecastRegrTask = function(task, recode.target = "no") {
+  y = task$env$data[, task$task.desc$target, drop = TRUE]
+  y
+}
+
 
 #' Extract data in task.
 #'
@@ -428,7 +433,9 @@ changeData = function(task, data, costs, weights) {
     "cluster" = makeClusterTaskDesc(td$id, data, task$weights, task$blocking),
     "surv" = makeSurvTaskDesc(td$id, data, td$target, task$weights, task$blocking, td$censoring),
     "costsens" = makeCostSensTaskDesc(td$id, data, td$target, task$blocking, costs),
-    "multilabel" = makeMultilabelTaskDesc(td$id, data, td$target, td$weights, task$blocking)
+    "multilabel" = makeMultilabelTaskDesc(td$id, data, td$target, td$weights, task$blocking),
+    "fcregr" = makeForecastRegrTaskDesc(td$id, data, td$target, td$weights, td$blocking, td$frequency),
+    "mfcregr" = makeMultiForecastRegrTaskDesc(td$id, data, td$target, td$weights, td$blocking, td$frequency)
   )
 
   return(task)
