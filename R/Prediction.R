@@ -205,7 +205,7 @@ makePrediction.ForecastRegrTaskDesc = function(task.desc, row.names, id, truth, 
   # This will only happen when there is a task with no subset
   #  aka, we predict future values and have to get their times
   if (length(truth) > size.y) {
-    row.dates = as.POSIXct(row.names)
+    row.dates = as.POSIXct(task.desc$dates)
     diff.time = difftime(row.dates[2], row.dates[1], units = "auto")
     start = row.dates[length(row.dates)] + diff.time
     end = start + diff.time * size.y

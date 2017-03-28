@@ -40,15 +40,15 @@ instantiateResampleInstance.RepCVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.FixedCVDesc = function(desc, size, task = NULL) {
-  initial.window = floor(desc$initial.window * size)
-  assertInt(initial.window, lower = 1)
-  if (size - initial.window < desc$horizon)
+  initial.window.abs = floor(desc$initial.window * size)
+  assertInt(initial.window.abs, lower = 1)
+  if (size - initial.window.abs < desc$horizon)
     stop(catf("The initial window is %i observations while the data is %i observations. \n
       There is not enough data left (%i observations) to create a test set for a %i size horizon",
-      initial.window, size, initial.window - size, desc$horizon))
+      initial.window.abs, size, initial.window.abs - size, desc$horizon))
   skip = floor(desc$skip * size)
-  stops  = (seq(size))[initial.window:(size - desc$horizon)]
-  starts = stops - initial.window + 1
+  stops  = (seq(size))[initial.window.abs:(size - desc$horizon)]
+  starts = stops - initial.window.abs + 1
   train.inds = mapply(seq, starts, stops, SIMPLIFY = FALSE)
   test.inds  = mapply(seq, stops + 1, stops + desc$horizon, SIMPLIFY = FALSE)
 
@@ -68,14 +68,14 @@ instantiateResampleInstance.FixedCVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.GrowingCVDesc = function(desc, size, task = NULL) {
-  initial.window = floor(desc$initial.window * size)
-  assertInt(initial.window, lower = 1)
-  if (size - initial.window < desc$horizon)
+  initial.window.abs = floor(desc$initial.window * size)
+  assertInt(initial.window.abs, lower = 1)
+  if (size - initial.window.abs < desc$horizon)
     stop(catf("The initial window is %i observations while the data is %i observations. \n
       There is not enough data left (%i observations) to create a test set for a %i size horizon",
-      initial.window, size, initial.window - size, desc$horizon))
+      initial.window.abs, size, initial.window.abs - size, desc$horizon))
   skip = floor(desc$skip * size)
-  stops  = (seq(from = 1, to = size))[initial.window:(size - desc$horizon)]
+  stops  = (seq(from = 1, to = size))[initial.window.abs:(size - desc$horizon)]
   starts = rep(1, length(stops))
   train.inds = mapply(seq, starts, stops, SIMPLIFY = FALSE)
   test.inds  = mapply(seq, stops + 1, stops + desc$horizon, SIMPLIFY = FALSE)

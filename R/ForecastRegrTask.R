@@ -44,13 +44,13 @@ makeForecastRegrTask = function(id = deparse(substitute(data)), data, target,
   rownames(data) = dates[, 1]
 
   task = makeSupervisedTask("fcregr", data, target, weights, blocking, fixup.data = fixup.data, check.data = check.data)
-  task$task.desc = makeForecastRegrTaskDesc(id, data, target, weights, blocking, frequency)
+  task$task.desc = makeForecastRegrTaskDesc(id, data, target, weights, blocking, frequency, dates)
   addClasses(task, c("ForecastRegrTask", "TimeTask"))
 }
 
-makeForecastRegrTaskDesc = function(id, data, target, weights, blocking, frequency) {
+makeForecastRegrTaskDesc = function(id, data, target, weights, blocking, frequency, dates) {
   td = makeTaskDescInternal("fcregr", id, data, target, weights, blocking)
-  td$dates = c(rownames(data)[1], rownames(data)[nrow(data)])
+  td$dates = dates
   td$frequency = frequency
   addClasses(td, c("ForecastRegrTaskDesc", "SupervisedTaskDesc"))
 }
@@ -63,7 +63,7 @@ print.ForecastRegrTask = function(x, print.weights = TRUE, ...) {
   catf("Type: %s", td$type)
   catf("Target: %s", td$target)
   catf("Observations: %i", td$size)
-  catf("Dates:\n Start: %s \n End:   %s", td$dates[1], td$dates[2])
+  catf("Dates:\n Start: %s \n End:   %s", td$dates[1], td$dates[length(td$dates)])
   catf("Frequency: %i", td$frequency)
   catf("Features:")
   catf(printToChar(td$n.feat, collapse = "\n"))
