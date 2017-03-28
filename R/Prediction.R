@@ -197,10 +197,11 @@ makePrediction.CostSensTaskDesc = function(task.desc, row.names, id, truth, pred
 #' @export
 makePrediction.ForecastRegrTaskDesc = function(task.desc, row.names, id, truth, predict.type, predict.threshold = NULL, y, time, error = NA_character_, dump = NULL) {
   data = namedList(c("id", "truth", "response", "se"))
-  if (any(inherits(y, "matrix")))
+  if (any(inherits(y, "matrix"))) {
     size.y = nrow(y)
-  else
+  } else {
     size.y = length(y)
+  }
 
   # This will only happen when there is a task with no subset
   #  aka, we predict future values and have to get their times
