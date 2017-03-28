@@ -214,10 +214,11 @@ makePrediction.ForecastRegrTaskDesc = function(task.desc, row.names, id, truth, 
     data$truth = NULL
   } else {
     row.dates = row.names[seq_len(length(truth))]
-    if (inherits(y, "matrix"))
+    if (inherits(y, "matrix")) {
       y = y[seq_len(length(truth)), , drop = FALSE]
-    else
+    } else {
       y = y[seq_len(length(truth))]
+    }
     data$id = id
     data$truth = truth
   }
