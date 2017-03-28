@@ -447,12 +447,12 @@ getTaskWeights = function(task) {
   task$weights
 }
 
-#' Get the dates of the task.
+#' @title Get the dates of the task.
 #'
 #' @template arg_task_or_desc
 #' @return [\code{character(1)}]
 #' @export
 #' @family task
-getTaskDates = function(task) {
-  getTaskDesc(task)$dates
+getTaskDates = function(x) {
+  getTaskDesc(x)$dates
 }

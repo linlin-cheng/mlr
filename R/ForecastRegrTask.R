@@ -41,7 +41,6 @@ makeForecastRegrTask = function(id = deparse(substitute(data)), data, target,
   }
   # Remove the date column and add it as the rownames
   data = data[, date.col != colnames(data), drop = FALSE]
-  rownames(data) = dates[, 1]
 
   task = makeSupervisedTask("fcregr", data, target, weights, blocking, fixup.data = fixup.data, check.data = check.data)
   task$task.desc = makeForecastRegrTaskDesc(id, data, target, weights, blocking, frequency, dates)

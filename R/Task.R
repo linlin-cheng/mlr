@@ -76,7 +76,7 @@
 #'   Default is 1L for no seasonality.
 #' @param date.col [\code{character(1)}]\cr
 #'   The column which contains the dates for your data. These dates should be unique, in a POSIXt format, and in ascending order.
-#'   If \code{check.data} is TRUE, all three of these conditions will be checked. If \code{fixup.data} is not 'no', then unorded data will be placed in ascending order.
+#'   If \code{check.data} is TRUE, the first two conditions will be checked. If \code{fixup.data} is not 'no', then unorded data will be placed in ascending order.
 #' @return [\code{\link{Task}}].
 #' @name Task
 #' @rdname Task
