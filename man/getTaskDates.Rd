@@ -13,6 +13,9 @@ Task or its description object.}
 \value{
 [\code{character(1)}]
 }
+\description{
+Returns the dates from a task if they exist.
+}
 \seealso{
 Other task: \code{\link{getTaskClassLevels}},
   \code{\link{getTaskCosts}}, \code{\link{getTaskData}},
